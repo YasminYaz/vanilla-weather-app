@@ -29,3 +29,28 @@ function showTemperature(response) {
 
 let findCity = document.querySelector("#navigation");
 findCity.addEventListener("submit", searchedCity);
+
+let currentDate = document.querySelector("#current-date");
+let now = new Date();
+let hour = now.getHours().toString().padStart(2, "0");
+let minute = now.getMinutes().toString().padStart(2, "0");
+let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+let day = days[now.getDay()];
+let date = now.getDate();
+let months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+let month = months[now.getMonth()];
+let year = now.getFullYear();
+currentDate.innerHTML = `${day}, ${month} ${date}, ${year} ${hour}:${minute}`;
