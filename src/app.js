@@ -47,8 +47,22 @@ function showTemperature(response) {
   celsiusButton.addEventListener("click", toCelsius);
 }
 
+function gps() {
+  function handlePosition(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiKey = "0fatb32bfcf4bc9f20b4dc9001dca93o";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}`;
+    axios.get(apiUrl).then(showTemperature);
+  }
+  navigator.geolocation.getCurrentPosition(handlePosition);
+}
+
 let findCity = document.querySelector("#navigation");
 findCity.addEventListener("submit", searchedCity);
+
+let currentLocationButton = document.querySelector("#location");
+currentLocationButton.addEventListener("click", gps);
 
 let currentDate = document.querySelector("#current-date");
 let now = new Date();
