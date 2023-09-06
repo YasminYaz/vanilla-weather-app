@@ -33,3 +33,7 @@ a {
 #weather-description:first-letter {
   text-transform: capitalize;
 }
+
+#forecast-icon {
+  width: 80px;
+}
