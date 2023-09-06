@@ -13,6 +13,109 @@
     <link rel="stylesheet" href="src\styles.css" />
   </head>
   <body>
+    <nav class="navbar">
+      <form role="search" id="navigation" class="w-100">
+        <div class="row mb-5">
+          <h3 class="col-8" id="current-date">Sun, Sep 3, 2023 7:15</h3>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            <div class="input-group">
+              <input
+                id="search-input"
+                type="search"
+                class="form-control"
+                placeholder="What's the weather in..."
+                aria-label="What's the weather in..."
+                aria-describedby="button-addon2"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                type="submit"
+                id="button-addon2"
+              >
+                🔍
+              </button>
+            </div>
+
+            <button
+              id="location"
+              type="button"
+              class="btn btn-outline-secondary nav-button ms-1"
+            >
+              📍
+            </button>
+          </div>
+        </div>
+      </form>
+    </nav>
+    <div class="custom-container">
+      <div
+        class="btn-group ms-1"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio1"
+          autocomplete="off"
+          checked
+        />
+        <label class="btn btn-outline-secondary" for="btnradio1">°C</label>
+
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio3"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-secondary" for="btnradio3">°F</label>
+      </div>
+
+      <div class="row align-items-end">
+        <div class="col">
+          <img id="icon" src="" alt="" />
+          <h1></h1>
+          <h5 id="weather-description"></h5>
+        </div>
+        <div class="col"><h2 id="city"></h2></div>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 mt-4">
+      <div class="col-4">
+        <div class="card text-center mb-3">
+          <div class="card-body">
+            <h5 class="card-title">◯</h5>
+            <h4 id="wind-speed" class="card-text">km/h</h4>
+            <h6 class="card-text">Wind</h6>
+          </div>
+        </div>
+        <div class="card text-center mb-3">
+          <div class="card-body">
+            <h5 class="card-title">◯</h5>
+            <h4 id="humidity" class="card-text">%</h4>
+            <h6 class="card-text">Humidity</h6>
+          </div>
+        </div>
+        <div class="card text-center mb-3">
+          <div class="card-body">
+            <h5 class="card-title">◯</h5>
+            <h4 id="pressure" class="card-text">mb</h4>
+            <h6 class="card-text">Pressure</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="credits">
+      <a href="https://github.com/YasminYaz/vanilla-weather-app" target="_blank"
+        >Open-source code</a
+      >
+      by Yasaman Yazdi
+    </p>
+
     <script src="src\app.js"></script>
   </body>
 </html>
