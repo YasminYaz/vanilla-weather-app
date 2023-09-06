@@ -25,6 +25,13 @@ function showTemperature(response) {
 
   let pressure = document.querySelector("#pressure");
   pressure.innerHTML = `${response.data.temperature.pressure} mb`;
+
+  let icon = document.querySelector("#icon");
+  icon.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
+  icon.setAttribute("alt", response.data.condition.icon);
 }
 
 let findCity = document.querySelector("#navigation");
