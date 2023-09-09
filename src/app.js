@@ -1,7 +1,7 @@
 function search(city) {
   let apiKey = "0fatb32bfcf4bc9f20b4dc9001dca93o";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(displayTemperature);
 }
 
 function handleSubmit(event) {
@@ -10,13 +10,13 @@ function handleSubmit(event) {
   search(input);
 }
 
-function showTemperature(response) {
+function displayTemperature(response) {
   let city = document.querySelector("#city");
   city.innerHTML = response.data.city;
 
-  let displayTemp = document.querySelector("h1");
-  let temperature = Math.round(response.data.temperature.current);
-  displayTemp.innerHTML = `${temperature}°C`;
+  let temperature = document.querySelector("h1");
+  let temperatureValue = Math.round(response.data.temperature.current);
+  temperature.innerHTML = `${temperatureValue}°C`;
 
   let weatherDescription = document.querySelector("#weather-description");
   weatherDescription.innerHTML = response.data.condition.description;
@@ -57,9 +57,44 @@ function gps() {
     let lon = position.coords.longitude;
     let apiKey = "0fatb32bfcf4bc9f20b4dc9001dca93o";
     let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}`;
-    axios.get(apiUrl).then(showTemperature);
+    axios.get(apiUrl).then(displayTemperature);
   }
   navigator.geolocation.getCurrentPosition(handlePosition);
+}
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `
+    <div class="card">
+      <div class="card-body">
+        <ul class="list-group list-group-flush">`;
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <li class="list-group-item d-flex align-items-start">
+      <span class="me-auto row">
+        <img
+          id="forecast-icon"
+          class="col me-3"
+          src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png"
+          alt=""
+        />
+        <span class="col">
+          <span class="days fw-bold">${day}</span><br />
+          <span
+            class="forecast-description"
+            style="white-space: nowrap"
+            >Broken clouds</span
+          >
+        </span></span>
+      +38° <span class="lowest-temp">⸺ +22°</span>
+    </li>`;
+  });
+
+  forecastHTML = forecastHTML + `</div> </div> </ul>`;
+  forecastElement.innerHTML = forecastHTML;
 }
 
 let findCity = document.querySelector("#navigation");
@@ -94,3 +129,4 @@ let year = now.getFullYear();
 currentDate.innerHTML = `${day}, ${month} ${date}, ${year} ${hour}:${minute}`;
 
 search("Sydney");
+displayForecast();
