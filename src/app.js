@@ -44,19 +44,6 @@ function displayTemperature(response) {
   icon.setAttribute("alt", response.data.condition.icon);
 
   getForecast(response.data.city);
-
-  function toFahrenheit(event) {
-    let fahrenheit = Math.round(temperature * 1.8 + 32);
-    displayTemp.innerHTML = `${fahrenheit}°F`;
-  }
-  let fahrenheitButton = document.querySelector("#btnradio3");
-  fahrenheitButton.addEventListener("click", toFahrenheit);
-
-  function toCelsius(event) {
-    displayTemp.innerHTML = `${temperature}°C`;
-  }
-  let celsiusButton = document.querySelector("#btnradio1");
-  celsiusButton.addEventListener("click", toCelsius);
 }
 
 function gps() {
