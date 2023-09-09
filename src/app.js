@@ -10,6 +10,12 @@ function handleSubmit(event) {
   search(input);
 }
 
+function getForecast(city) {
+  let apiKey = "0fatb32bfcf4bc9f20b4dc9001dca93o";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayTemperature(response) {
   let city = document.querySelector("#city");
   city.innerHTML = response.data.city;
@@ -37,6 +43,8 @@ function displayTemperature(response) {
   );
   icon.setAttribute("alt", response.data.condition.icon);
 
+  getForecast(response.data.city);
+
   function toFahrenheit(event) {
     let fahrenheit = Math.round(temperature * 1.8 + 32);
     displayTemp.innerHTML = `${fahrenheit}°F`;
@@ -62,35 +70,60 @@ function gps() {
   navigator.geolocation.getCurrentPosition(handlePosition);
 }
 
-function displayForecast() {
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+  return day;
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `
     <div class="card">
       <div class="card-body">
         <ul class="list-group list-group-flush">`;
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
     <li class="list-group-item d-flex align-items-start">
       <span class="me-auto row">
         <img
           id="forecast-icon"
           class="col me-3"
-          src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png"
+          src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+            forecastDay.condition.icon
+          }.png"
           alt=""
         />
         <span class="col">
-          <span class="days fw-bold">${day}</span><br />
+          <span class="days fw-bold">${formatForecastDay(
+            forecastDay.time
+          )}</span><br />
           <span
             class="forecast-description"
             style="white-space: nowrap"
-            >Broken clouds</span
+            >${forecastDay.condition.description}</span
           >
         </span></span>
-      +38° <span class="lowest-temp">⸺ +22°</span>
+      ${Math.round(
+        forecastDay.temperature.maximum
+      )}° <span class="lowest-temp">⸺ ${Math.round(
+          forecastDay.temperature.minimum
+        )}°</span>
     </li>`;
+    }
   });
 
   forecastHTML = forecastHTML + `</div> </div> </ul>`;
@@ -129,4 +162,3 @@ let year = now.getFullYear();
 currentDate.innerHTML = `${day}, ${month} ${date}, ${year} ${hour}:${minute}`;
 
 search("Sydney");
-displayForecast();
