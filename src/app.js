@@ -1,9 +1,13 @@
-function searchedCity(event) {
+function search(city) {
+  let apiKey = "0fatb32bfcf4bc9f20b4dc9001dca93o";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showTemperature);
+}
+
+function handleSubmit(event) {
   event.preventDefault();
   let input = document.querySelector("#search-input").value;
-  let apiKey = "0fatb32bfcf4bc9f20b4dc9001dca93o";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${input}&key=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showTemperature);
+  search(input);
 }
 
 function showTemperature(response) {
@@ -59,7 +63,7 @@ function gps() {
 }
 
 let findCity = document.querySelector("#navigation");
-findCity.addEventListener("submit", searchedCity);
+findCity.addEventListener("submit", handleSubmit);
 
 let currentLocationButton = document.querySelector("#location");
 currentLocationButton.addEventListener("click", gps);
@@ -88,3 +92,5 @@ let months = [
 let month = months[now.getMonth()];
 let year = now.getFullYear();
 currentDate.innerHTML = `${day}, ${month} ${date}, ${year} ${hour}:${minute}`;
+
+search("Sydney");
