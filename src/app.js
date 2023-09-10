@@ -22,7 +22,7 @@ function displayTemperature(response) {
 
   let temperature = document.querySelector("h1");
   let temperatureValue = Math.round(response.data.temperature.current);
-  temperature.innerHTML = `${temperatureValue}°C`;
+  temperature.innerHTML = `${temperatureValue}°`;
 
   let weatherDescription = document.querySelector("#weather-description");
   weatherDescription.innerHTML = response.data.condition.description;
@@ -42,6 +42,9 @@ function displayTemperature(response) {
     `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
   icon.setAttribute("alt", response.data.condition.icon);
+
+  let background = document.querySelector("#custom-container");
+  background.style.backgroundImage = `url(img/${response.data.condition.icon}.jpg)`;
 
   getForecast(response.data.city);
 }
@@ -76,7 +79,7 @@ function displayForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `
-    <div class="card">
+    <div class="card p-2 pb-6">
       <div class="card-body">
         <ul class="list-group list-group-flush">`;
   forecast.forEach(function (forecastDay, index) {
@@ -84,7 +87,7 @@ function displayForecast(response) {
       forecastHTML =
         forecastHTML +
         `
-    <li class="list-group-item d-flex align-items-start">
+    <li class="list-group-item d-flex align-items-start forecast-text">
       <span class="me-auto row">
         <img
           id="forecast-icon"
@@ -95,18 +98,16 @@ function displayForecast(response) {
           alt=""
         />
         <span class="col">
-          <span class="days fw-bold">${formatForecastDay(
-            forecastDay.time
-          )}</span><br />
+          <span class="days">${formatForecastDay(forecastDay.time)}</span><br />
           <span
             class="forecast-description"
             style="white-space: nowrap"
             >${forecastDay.condition.description}</span
           >
         </span></span>
-      ${Math.round(
-        forecastDay.temperature.maximum
-      )}° <span class="lowest-temp">⸺ ${Math.round(
+       <span class="highest-temp">${Math.round(
+         forecastDay.temperature.maximum
+       )}° </span><span class="lowest-temp ms-5">${Math.round(
           forecastDay.temperature.minimum
         )}°</span>
     </li>`;
@@ -124,10 +125,19 @@ let currentLocationButton = document.querySelector("#location");
 currentLocationButton.addEventListener("click", gps);
 
 let currentDate = document.querySelector("#current-date");
+let currentHour = document.querySelector("#current-hour");
 let now = new Date();
 let hour = now.getHours().toString().padStart(2, "0");
 let minute = now.getMinutes().toString().padStart(2, "0");
-let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 let day = days[now.getDay()];
 let date = now.getDate();
 let months = [
@@ -145,7 +155,7 @@ let months = [
   "Dec",
 ];
 let month = months[now.getMonth()];
-let year = now.getFullYear();
-currentDate.innerHTML = `${day}, ${month} ${date}, ${year} ${hour}:${minute}`;
+currentDate.innerHTML = `${day}, ${date} ${month}`;
+currentHour.innerHTML = `${hour}:${minute}`;
 
 search("Sydney");

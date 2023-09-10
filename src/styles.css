@@ -1,37 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Bakbak+One&family=Bowlby+One&family=Permanent+Marker&family=Play:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap");
+
 body {
-  background: #89b5c2;
-  margin: 60px;
+  background: #fdfdfd;
+  margin: 40px 80px;
 }
 
 h1 {
+  font-family: "Montserrat", sans-serif;
   font-size: 120px;
+  font-weight: 600;
 }
 
 h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   text-align: right;
 }
 
+h3 {
+  font-family: "Bakbak One", cursive;
+  font-size: 24px;
+}
+
+h5 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+}
+
+h4,
+h6 {
+  color: #fdfdfd;
+  font-family: "Montserrat", sans-serif;
+}
+
+h4 {
+  font-weight: 600;
+}
+
+h6 {
+  font-weight: 300;
+}
+
 a {
-  color: #cccccc;
+  color: #cdcadd;
 }
 
 .custom-container {
-  background: rgba(241, 241, 241, 0.2);
-  color: #fff;
+  background-image: url();
+  background-size: cover;
+  border-radius: 20px;
+  color: #fdfdfd;
   margin: 0 auto;
   max-width: 100%;
   padding: 40px;
 }
 
+.card {
+  --bs-card-border-color: #f1ecef;
+  border-radius: 20px;
+}
+
+.forecast-text,
+#current-date {
+  color: #6e6097;
+}
+
+.colored-card {
+  background-color: #d9bfce;
+}
+
+.days,
+.highest-temp,
+.lowest-temp {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.forecast-description {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.pb-6 {
+  padding-bottom: 3.5rem !important;
+}
+
 .credits {
-  color: #cccccc;
+  color: #cdcadd;
   margin-bottom: 0;
   margin-top: 1rem;
   text-align: center;
 }
 
+#search-input,
+#button-addon2,
+#location {
+  background-color: #f7f9fa;
+  border: none;
+}
+
+#search-input {
+  border-radius: 20px 0 0 20px;
+}
+
+#search-input::placeholder {
+  color: #cdcadd;
+}
+
+#button-addon2 {
+  border-radius: 0 20px 20px 0;
+}
+
+#location {
+  transition: all 200ms ease;
+  border-radius: 20px;
+}
+
+#location:hover {
+  background-color: #cdcadd;
+}
+
 #weather-description:first-letter {
   text-transform: capitalize;
+}
+
+#forecast {
+  color: #6e6097;
 }
 
 #forecast-icon {
