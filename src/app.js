@@ -83,7 +83,7 @@ function displayForecast(response) {
       <div class="card-body">
         <ul class="list-group list-group-flush">`;
   forecast.forEach(function (forecastDay, index) {
-    if (index < 5) {
+    if (index < 6) {
       forecastHTML =
         forecastHTML +
         `
@@ -105,11 +105,13 @@ function displayForecast(response) {
             >${forecastDay.condition.description}</span
           >
         </span></span>
-       <span class="highest-temp">${Math.round(
-         forecastDay.temperature.maximum
-       )}° </span><span class="lowest-temp ms-5">${Math.round(
-          forecastDay.temperature.minimum
-        )}°</span>
+        <span class="max-min-temp">
+          <i class="fa-solid fa-arrow-up fa-xs" style="color: #ff2e47;"></i>
+          <span class="highest-temp">
+          ${Math.round(forecastDay.temperature.maximum)}° </span>
+          <span class="lowest-temp ms-5">
+            <i class="fa-solid fa-arrow-down fa-xs" style="color: #4d92e3;"></i>
+          ${Math.round(forecastDay.temperature.minimum)}°</span></span>
     </li>`;
     }
   });
